@@ -22,15 +22,20 @@
 </head>
 <body>
     <h1>Updateのあった予約番号</h1>
-    <div>
-        <h2>
-            表示建物名：
-            <select name="building_name">
-                <option value="both" selected>両方</option>
-                <option value="東急ステイ青山">東急ステイ青山</option>
-                <option value="東急ステイ四谷">東急ステイ四谷</option>
-            </select>
-        </h2>
+    <div style="margin-bottom: 1em; font-size: 1em;">
+        <label for="building-select">表示建物名：</label>
+        <select name="building_name" id="building-select">
+            <option value="both" selected>両方</option>
+            <option value="東急ステイ青山">東急ステイ青山</option>
+            <option value="東急ステイ四谷">東急ステイ四谷</option>
+        </select>
+
+        <label for="period-select" style="margin-left: 2em;">表示期間：</label>
+        <select name="period" id="period-select">
+            <option value="1" {% if delta == 1 %}selected{% endif %}>前日</option>
+            <option value="2" {% if delta == 2 %}selected{% endif %}>前々日</option>
+            <option value="3" {% if delta == 3 %}selected{% endif %}>3日前</option>
+        </select>
     </div>
     
     <table>
@@ -77,6 +82,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const buildingSelect = document.querySelector('select[name="building_name"]');
             const tableBody = document.querySelector('table tbody');
+            const periodSelect = document.getElementById('period-select');
             const tableRows = Array.from(tableBody.querySelectorAll('tr'));
             const checkBoxes = document.querySelectorAll('.row-checkbox');
 
@@ -91,6 +97,13 @@
                     }
                 });
             }
+
+            // 表示期間ドロップダウンの変更を監視
+            periodSelect.addEventListener('change', function() {
+                const selectedDelta = this.value;
+                // 選択されたdelta値でページをリロード
+                window.location.href = `/?delta=${selectedDelta}`;
+            });
 
             // チェックボックスのイベントリスナーを設定
             checkBoxes.forEach(function(checkbox) {

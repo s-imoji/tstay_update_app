@@ -27,7 +27,7 @@ def bigquery_query():
         # Get the results
         results = query_job.result()
 
-        return render_template('index.html', results=results)
+        return render_template('index.html', results=results, delta=delta)
 
     except Exception as e:
         return f"An error occurred: {e}"
