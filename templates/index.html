@@ -19,18 +19,46 @@
 </head>
 <body>
     <h1>Updateのあった予約番号</h1>
+    <tr>
+        <td>
+            <select>
+                <option value="東急ステイ青山" selected>東急ステイ青山</option>
+                <option value="東急ステイ四谷">東急ステイ四谷</option>
+            </select>
+        </td>
+    </tr>
     <table>
         <thead>
             <tr>
-                <th>Corpus</th>
-                <th>Word Count</th>
+
+                <th>新規/更新</th>
+                <th>建物名</th>
+                <th>作成日時</th>
+                <th>更新日時</th>
+                <th>部屋名</th>
+                <th>OTAタイプ</th>
+                <th>予約番号</th>
+                <th>checkin日</th>
+                <th>checkout日</th>
+                <th>受付完了？</th>
+                <th>キャンセル日時</th>
+                
             </tr>
         </thead>
         <tbody>
             {% for row in results %}
                 <tr>
-                    <td>{{ row.corpus }}</td>
-                    <td>{{ row.word_count }}</td>
+                    <td>{{ row.create_flg }}</td>
+                    <td>{{ row.building_name }}</td>
+                    <td>{{ row.create_string_timestamp }}</td>
+                    <td>{{ row.update_string_timestamp }}</td>
+                    <td>{{ row.room_name }}</td>
+                    <td>{{ row.ota_type }}</td>
+                    <td>{{ row.reservation_no }}</td>
+                    <td>{{ row.start_date }}</td>
+                    <td>{{ row.end_date }}</td>
+                    <td>{{ row.accepted }}</td>
+                    <td>{{ row.cancel_string_timestamp }}</td>
                 </tr>
             {% endfor %}
         </tbody>
